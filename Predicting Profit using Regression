@@ -1,0 +1,68 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+dataset = pd.read_csv('50_Startups.csv')
+
+X = dataset.iloc[:, :-1].values
+
+y = dataset.iloc[:, 4].values
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+labelencoder = LabelEncoder()
+
+print(X)
+
+#Plot R&D vs Profit............
+x1 = dataset.iloc[:, 0].values
+y1 = dataset.iloc[:, -1].values
+plt.scatter(x1,y1,color='Green',s=50)
+plt.xlabel('R&D')
+plt.ylabel('Profit')
+plt.title('R&D vs Profit')
+plt.show()
+
+#Plot Administration vs Profit
+x1 = dataset.iloc[:, 1].values
+y1 = dataset.iloc[:, -1].values
+plt.scatter(x1,y1,color='Red',s=50)
+plt.xlabel('Administration')
+plt.ylabel('Profit')
+plt.title('Administration vs Profit')
+plt.show()
+
+#Plot Marketing Spend vs Profit
+x1 = dataset.iloc[:, 2].values
+y1 = dataset.iloc[:, -1].values
+plt.scatter(x1,y1,color='Black',s=50)
+plt.xlabel('Marketing Spend')
+plt.ylabel('Profit')
+plt.title('Marketing Spend vs Profit')
+plt.show()
+
+#Plot State vs Profit
+x1 = dataset.iloc[:, 3].values
+y1 = dataset.iloc[:, -1].values
+plt.scatter(x1,y1,color='Blue',s=50)
+plt.xlabel('State')
+plt.ylabel('Profit')
+plt.title('State vs Profit')
+plt.show()
+
+X = X[:, 1:]
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+from sklearn.linear_model import LinearRegression
+
+regressor = LinearRegression()
+
+regressor.fit(X_train, y_train)
+
+y_pred = regressor.predict(X_test)
+
+print(y_pred)
+
+print(y_test)
